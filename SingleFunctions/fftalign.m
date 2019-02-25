@@ -26,7 +26,10 @@ C = C - min(C(:));
 
 % maskOuter = ones(5,5);
 % maskOuter([2 3 4],[2 3 4]) = ~(maskCenter==1);
-C(size(C,1)/2+[-1 0 1],size(C,2)/2+[-1 0 1]) = 0;
+
+% The line below was modified from the Github version in order to work with R2018b
+% C(size(C,1)/2+[-1 0 1],size(C,2)/2+[-1 0 1]) = 0;
+C(fix(size(C,1)/2)+[-1 0 1],fix(size(C,2)/2)+[-1 0 1]) = 0;
 % C(size(C,1)/2+[-1 0 1],size(C,2)/2) = 0;
 C = C/max(C(:));
 
@@ -60,7 +63,11 @@ if plotting==true
     % colorbar
     daspect([1 1 1])
     shading flat
-    axis([size(C,2)/2+[-50 50] size(C,1)/2+[-50 50]])
+
+    % The line below was modified from the Github version to work with R2018B.
+    %axis([size(C,2)/2+[-50 50] size(C,1)/2+[-50 50]])
+    axis([fix(size(C,2)/2)+[-50 50] fix(size(C,1)/2)+[-50 50]])
+
     hold on
     plot(jj,ii,'r.','markersize',20)
     title('FFT Corr')
